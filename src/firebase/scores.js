@@ -18,3 +18,9 @@ export async function submitScore(timeTaken, penalty) {
         console.error("Error submitting score: ", err);
     }
 }
+
+export function logoutUser() {
+    localStorage.removeItem("uid");
+    toast.success("Logged out successfully!");
+    window.location.href = "/login";
+}
