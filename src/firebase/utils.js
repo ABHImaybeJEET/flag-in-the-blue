@@ -1,5 +1,5 @@
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../firebase/firebase.js";
+import { db } from "./firebase.js";
 import { toast } from "react-hot-toast";
 
 export async function submitScore(timeTaken, penalty) {
@@ -13,9 +13,11 @@ export async function submitScore(timeTaken, penalty) {
         await updateDoc(scoresCollRef, { totalScore: totalScore });
         console.log("Score submitted successfully!");
         toast.success("Score submitted successfully!");
+        return true;
     } catch (err) {
         toast.error("Failed to submit score");
         console.error("Error submitting score: ", err);
+        return false;
     }
 }
 
