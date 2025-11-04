@@ -1,34 +1,21 @@
 import { getDocs, collection } from "firebase/firestore";
-import { db } from "../config/firebase.jsx";
+import { db } from "../config/firebase.js";
 import { useEffect, useState, useMemo } from "react";
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
 function Leaderboard() {
-  //DEFINING STATES
-  const [board, setBoard] = useState([]);
   const [info, setInfo] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getScores = useCallback(async () => {
-    try {
-      //Defining collection reference
-      const refScores = collection(db, "scores");
-      const data = await getDocs(refScores);
-      const scores = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setBoard(scores);
-      // console.log(scores);
-    } catch (error) {
-      console.error("Error fetching scores: ", error);
-    }
-  }, []);
-
   const getUserInfo = useCallback(async () => {
     try {
-      //Defining collection reference
       const refUsers = collection(db, "users");
       const data = await getDocs(refUsers);
       const users = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setInfo(users);
+      const finalScore = users.map((user) =>
+        user.totalScore == undefined ? { ...user, totalScore: Infinity } : user
+      );
+      setInfo(finalScore.sort((a, b) => a.totalScore - b.totalScore));
     } catch (error) {
       console.error("Error fetching user info: ", error);
     } finally {
@@ -36,45 +23,55 @@ function Leaderboard() {
     }
   }, []);
 
-  const combined = useMemo(() => {
-    return board
-      .map((score) => ({
-        ...score,
-        user: info.find((u) => u.id === score.userId),
-      }))
-      .sort((a, b) => a.timeTaken - b.timeTaken);
-  }, [board, info]);
-
-  // console.log(combined);
-
   useEffect(() => {
-    getScores();
     getUserInfo();
   }, []);
 
   if (loading) return <div>Loading leaderboard...</div>;
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Time Taken</th>
-            <th>Penalty</th>
-          </tr>
-        </thead>
-        <tbody>
-          {combined.map((entry, index) => (
-            <tr key={entry.id}>
-              <td>{index + 1}</td>
-              <td>{entry.user?.name || "Unknown User"}</td>
-              <td>{entry.timeTaken}</td>
-              <td>{entry.penalty}</td>
+    <div className="p-4">
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200 bg-white shadow-sm rounded-lg">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Rank
+              </th>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Name
+              </th>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Phone
+              </th>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Email
+              </th>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Time Taken
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-100">
+            {info.map((entry, index) => (
+              <tr key={entry.id} className="even:bg-gray-50">
+                <td className="px-4 py-3 text-sm text-gray-700">{index + 1}</td>
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {entry?.name || "Unknown User"}
+                </td>
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {entry?.phone || "-"}
+                </td>
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {entry?.email || "-"}
+                </td>
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {entry?.totalScore ?? "-"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
