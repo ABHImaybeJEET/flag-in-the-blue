@@ -1,20 +1,28 @@
-import OceanScene from "./components/OceanScene";
-import { Button } from "./components/ui/button";
 import { ThemeProvider } from "@/components/theme-provider";
-import HintBox from "./components/hints";
-import FinalAnswerPopup from "./components/finish";
-import CorrectAnswerPopup from "./components/correct";
-import WrongAnswerPopup from "./components/wrong";
-import GameTimer from "./components/GameTimer";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Suspense, lazy } from "react";
+
+const RegisterUser = lazy(() => import("./pages/register.jsx"));
+const Game = lazy(() => import("./pages/game.jsx"));
+const Login = lazy(() => import("./pages/login.jsx"));
+const Leaderboard = lazy(() => import("./pages/leaderboard.jsx"));
 
 function App() {
     return (
         <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-            <main className="flex min-h-screen flex-col items-center justify-center">
-                <GameTimer />
-                <OceanScene />
-                <FinalAnswerPopup/>
-            </main>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<Navigate to="/login" replace />}
+                    />
+                    <Route path="/register" element={<RegisterUser />} />
+                    <Route path="/game" element={<Game />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/leaderboard" element={<Leaderboard />} />
+
+                </Routes>
+            </Suspense>
         </ThemeProvider>
     );
 }
