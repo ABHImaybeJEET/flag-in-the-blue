@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import hints from "../data/hint.js"; 
-import hintButtonImg from "/hintbutton.png";
-import popupBoxImg from "/popupbox.png"; 
-import nextBoxImg from "/nextbox.png"; 
-import prevBoxImg from "/prevbox.png";
-import okBoxImg from "/okbox.png";
-
+import hintButtonImg from "../assets/hintbutton.png";
+import popupBoxImg from "../assets/popupbox.png"; 
+import nextHintImg from "../assets/nexthint.png"; 
+import prevBoxImg from "../assets/prevbox.png";
+import okBoxImg from "../assets/okbox.png";
+import nextBoxImg from "../assets/nextbox.png"; 
+import finish from "../assets/finish.png";
+import tryagain from "../assets/tryagain.png";
 const jakartaFont = { fontFamily: '"Super Squad", sans-serif' };
 
 export default function HintBox() {
@@ -45,7 +47,6 @@ export default function HintBox() {
           alt="Hint Button" 
           className="w-32 h-auto hover:scale-105 transition-transform" 
         />
-        <span className="text-sm mt-1 tracking-widest">HINTS</span>
       </button>
 
       {isOpen && (
@@ -78,8 +79,8 @@ export default function HintBox() {
             <button
               onClick={prevHint}
               style={{ backgroundImage: `url(${prevBoxImg})`, backgroundSize: '100% 100%' }}
-              className="w-24 h-20 md:w-32 md:h-24 // Increased height
-                         flex items-center justify-center // CENTERS THE <
+              className="w-24 h-20 md:w-32 md:h-24 
+                         flex items-center justify-center 
                          bg-contain bg-no-repeat bg-center text-amber-400 font-extrabold 
                          text-3xl md:text-4xl hover:scale-110 transition-transform duration-200 
                          disabled:opacity-50 disabled:cursor-not-allowed"
@@ -91,9 +92,9 @@ export default function HintBox() {
             <button
               onClick={() => setIsOpen(false)}
               style={{ backgroundImage: `url(${okBoxImg})`, backgroundSize: '100% 100%' }}
-              className="w-32 h-20 md:w-40 md:h-24 // Increased height
+              className="w-32 h-20 md:w-40 md:h-24 
                          flex items-center justify-center 
-                         bg-contain bg-no-repeat bg-center text-yellow-400 font-extrabold // TEXT CHANGED TO YELLOW
+                         bg-contain bg-no-repeat bg-center text-yellow-400 font-extrabold 
                          text-2xl md:text-3xl hover:scale-110 transition-transform duration-200"
             >
               
@@ -102,8 +103,8 @@ export default function HintBox() {
             <button
               onClick={nextHint}
               style={{ backgroundImage: `url(${nextBoxImg})`, backgroundSize: '100% 100%' }}
-              className="w-24 h-20 md:w-32 md:h-24 // Increased height
-                         flex items-center justify-center // CENTERS THE >
+              className="w-24 h-20 md:w-32 md:h-24 
+                         flex items-center justify-center 
                          bg-contain bg-no-repeat bg-center text-amber-400 font-extrabold 
                          text-3xl md:text-4xl hover:scale-110 transition-transform duration-200 
                          disabled:opacity-50 disabled:cursor-not-allowed"

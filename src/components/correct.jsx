@@ -1,11 +1,12 @@
 import { useState } from "react";
-import hints from "../data/hint.js";
-import hintButtonImg from "/hintbutton.png";
-import popupBoxImg from "/popupbox.png";
-import nextHintImg from "/nexthint.png";
-import prevBoxImg from "/prevbox.png";
-import okBoxImg from "/okbox.png";
-import nextBoxImg from "/nextbox.png";
+import hints from "../data/hint.js"; 
+import hintButtonImg from "../assets/hintbutton.png";
+import popupBoxImg from "../assets/popupbox.png"; 
+import nextHintImg from "../assets/nexthint.png"; 
+import prevBoxImg from "../assets/prevbox.png";
+import okBoxImg from "../assets/okbox.png";
+import nextBoxImg from "../assets/nextbox.png"; 
+
 
 const jakartaFont = { fontFamily: '"Super Squad", sans-serif' };
 

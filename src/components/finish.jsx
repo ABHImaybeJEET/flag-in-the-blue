@@ -1,12 +1,13 @@
 import React, { useState } from "react"; 
 import hints from "../data/hint.js"; 
-import hintButtonImg from "/hintbutton.png";
-import popupBoxImg from "/popupbox.png"; 
-import nextHintImg from "/nexthint.png"; 
-import prevBoxImg from "/prevbox.png";
-import okBoxImg from "/okbox.png";
-import nextBoxImg from "/nextbox.png"; 
-import finish from "/finish.png";
+import hintButtonImg from "../assets/hintbutton.png";
+import popupBoxImg from "../assets/popupbox.png"; 
+import nextHintImg from "../assets/nexthint.png"; 
+import prevBoxImg from "../assets/prevbox.png";
+import okBoxImg from "../assets/okbox.png";
+import nextBoxImg from "../assets/nextbox.png"; 
+import finish from "../assets/finish.png";
+import tryagain from "../assets/tryagain.png";
 
 const jakartaFont = { fontFamily: '"Super Squad", sans-serif' };
 
@@ -62,7 +63,6 @@ export default function HintBox() {
           alt="Hint Button" 
           className="w-32 h-auto hover:scale-105 transition-transform" 
         />
-        <span className="text-sm mt-1 tracking-widest">HINTS</span>
       </button>
       
       
